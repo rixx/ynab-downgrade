@@ -18,6 +18,9 @@ for you with a specific scenario, so others will know what works and what doesn'
 
 ## Preliminaries
 
+**In nYNAB:** Check if any of your category names contain a : or a `, as those are not valid characters in YNAB 4.
+Change the category names now instead of having to go through
+
 **In nYNAB:** Export your nYNAB budget by clicking on the budget name in the upper right hand corner → Export Budget.
 Download the resulting zip file (once your browser has stopped freezing if your budget is a bit older), and export the
 zip archive. It contains two files: `Budgetname as of date - Budget.csv` and `Budgetname as of date - Register.csv`.
