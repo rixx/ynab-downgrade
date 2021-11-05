@@ -103,6 +103,8 @@ Unless you want your budget history to be imported, too – do you want to know 
 in 2017? … If so: **quit YNAB 4 and make a backup of the directory**! Seriously: Your current state is very good and
 you really don't want to repeat the work you just did if the budget import screws up somehow.
 
+… and then check back later: I'm fairly sure a budget import can be done, but I wanted to publish this page first.
+
 ## Appendix 1: YNAB 4
 
 YNAB 4 is a desktop application that was the predecessor of the web version, commonly called nYNAB (or just YNAB). YNAB
