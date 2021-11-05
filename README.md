@@ -30,6 +30,26 @@ Inside, there is a `data1~number` directory, and inside that, there is a directo
 like `98C499B4-4B29-6CC5-3B7A-F0247E9E2551`. Open this directory – it will contain a `budgetSettings.ybsettings` file
 and a `Budget.yfull` file. I will call this directory "YNAB4 data directory" from here on out.
 
+## Step 1: Creating accounts
+
+As a first step, create all your accounts in YNAB 4. Please make sure they are spelt *exactly* like in nYNAB.
+**Take care to also create closed accounts!**
+
+*(It's probably not worth to automate this step, especially since the nYNAB export does not contain account information
+like the account type, so even if we write an importer, we'd still have to manually correct the account type, and people
+usually have a limited amount of accounts.)*
+
+Now's a good time to make a backup of your YNAB4 data directory, because if something down the line fails, you won't
+want to go through this a second time.
+
+## Step 2: Creating categories
+
+While accounts are limited in number, categories can be a lot, so I wrote a tiny importer. Make sure to close YNAB 4
+before running it – it overrides the data file on closing!
+
+```bash
+python create_categories.py path/to/nynab_data_directory path/to/Budget.csv
+```
 
 ## Appendix 1: YNAB 4
 
