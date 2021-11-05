@@ -7,6 +7,9 @@ You will *export* your current nYNAB budget, then perform some scripted steps on
 import it into a new YNAB4 budget. The scripted steps assume that you know how to use Python. (If anybody wants to
 improve this guide with setup instructions, PRs are welcome!)
 
+Sadly, there is not much scripted at the moment – you will spend a lot of time on manual tasks. But at least, this page
+supplies a guide for handling this stuff a bit better.
+
 ## Caveats
 
 The process isn't automated and has some tricky steps – but if it goes wrong, you can always delete your YNAB4 data and
@@ -19,7 +22,9 @@ for you with a specific scenario, so others will know what works and what doesn'
 ## Preliminaries
 
 **In nYNAB:** Check if any of your category names contain a : or a `, as those are not valid characters in YNAB 4.
-Change the category names now instead of having to go through
+Change the category names now instead of having to go through. Also unhide all of your previously hidden categories, as
+the import will otherwise not work for them, and you'll have to re-categorise them manually. (Not a big deal because
+they will be easy to filter for, but annoying regardless).
 
 **In nYNAB:** Export your nYNAB budget by clicking on the budget name in the upper right hand corner → Export Budget.
 Download the resulting zip file (once your browser has stopped freezing if your budget is a bit older), and export the
@@ -67,6 +72,36 @@ imports more likely.
 
 You'll want to import every file next, each under the appropriate account. Make sure to select Year/Month/Date as time
 format, as well as "Include transactions before account start date".
+
+Next, approve all transactions and recategorise if any did not receive a matching category on import. And now the
+tedious part: When you transferred money from account A to B, this transaction shows up in the account A export and the
+account B export – but since YNAB 4 does not know that we'll provide both imports, it also auto generates the matching
+transfer transaction, so every transfer exists twice. You have to go through the list of all transactions, filter for
+Transfer, and delete every other one :/
+
+To do this, first filter by "Is: Cleared,  Transfer". Then, the easiest workflow is to mark the first transaction, then
+hold Ctrl, and keep pressing down, down, space. Delete either all the inflows or outflows – it doesn't matter, as their
+counterparts will also disappear.
+
+For context: I used nYNAB for just over five years, and I had to mark around 150 transactions. Not great, but not
+terrible, either.
+
+## Step 5: Cleanup
+
+Now, chances are, some accounts won't have the correct balance. I'm not quite sure what's going on, to be quite honest.
+Out of my 7 accounts, 2 were off (one by a bit, one by a bit more), the other five came out correct. Things to check:
+
+- An imported starting balance can be marked incorrectly, either change the flow direction or delete it.
+- Mark a suspect time period (first and last month / year / quarter) in both nYNAB and YNAB 4 and compare the totals.
+
+Now, once all the account totals are correct: **you can be done**. Just copy your current category bucket total into
+your YNAB 4, and you're ready to go. Congratulations!
+
+## Step 6: Budget import (optional)
+
+Unless you want your budget history to be imported, too – do you want to know how much money you set aside for vacation
+in 2017? … If so: **quit YNAB 4 and make a backup of the directory**! Seriously: Your current state is very good and
+you really don't want to repeat the work you just did if the budget import screws up somehow.
 
 ## Appendix 1: YNAB 4
 
