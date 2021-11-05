@@ -51,8 +51,22 @@ While accounts are limited in number, categories can be a lot, so I wrote a tiny
 before running it – it overrides the data file on closing!
 
 ```bash
-python create_categories.py path/to/nynab_data_directory path/to/Budget.csv
+python create_categories.py path/to/ynab4_data_directory path/to/Budget.csv
 ```
+
+## Step 3: Splitting the payment export file
+
+```bash
+python split_export.py path/to/nynab_data_directory/Register.csv
+```
+
+Will place one CSV file for each account in your working directory, and will replace some terms to make successful
+imports more likely.
+
+## Step 4: Importing files
+
+You'll want to import every file next, each under the appropriate account. Make sure to select Year/Month/Date as time
+format, as well as "Include transactions before account start date".
 
 ## Appendix 1: YNAB 4
 
