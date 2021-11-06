@@ -16,6 +16,9 @@ Don't expect an automated and smooth process – this repo is more of a guide wi
 you can always delete your YNAB4 data and start again. Since we're starting with a new YNAB4 budget, nothing will be
 lost.
 
+Split transactions won't be imported as splits, but rather as individual transactions. The memo field will say "Split
+1/n" though, so you'll still see which transactions belonged together.
+
 I also don't use many YNAB features including loans and separate credit card accounts, so the import might not work
 correctly for them. Please open PRs with updates if you find required changes, or comment on the main issue if it worked
 for you with a specific scenario, so others will know what works and what doesn't!
