@@ -111,7 +111,20 @@ Unless you want your budget history to be imported, too – do you want to know 
 in 2017? … If so: **quit YNAB 4 and make a backup of the directory**! Seriously: Your current state is very good and
 you really don't want to repeat the work you just did if the budget import screws up somehow.
 
-… and then check back later: I'm fairly sure a budget import can be done, but I wanted to publish this page first.
+Then run:
+
+```bash
+python import_budgets.py path/to/ynab4_data_directory path/to/Budget.csv
+```
+
+All your budget data should get imported. Please let me know if this doesn't work – I'm assuming currencies with a
+single symbol and two decimal places, for example, because I'm lazy like that. You might also try entering a random
+number into your first month (e.g. April 2016) in YNAB 4 if the import fails – this will cause YNAB to create all the
+monthly buckets, so that the importer only has to add the correct numbers.
+
+When you open YNAB 4, the total budgeted numbers per category should be correct – if you use future budgeting a lot, it
+might look off at first, because you'll have large visible numbers as "not budgeted". These numbers are correct though,
+and should line up with what you see in the breakdown when you click the month's total in nYNAB.
 
 ## Appendix 1: YNAB 4
 
