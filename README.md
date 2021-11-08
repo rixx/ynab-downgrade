@@ -120,10 +120,10 @@ Then run:
 python import_budgets.py path/to/Budget.csv path/to/ynab4_data_directory
 ```
 
-All your budget data should get imported. Please let me know if this doesn't work – I'm assuming currencies with a
-single symbol and two decimal places, for example, because I'm lazy like that. You might also try entering a random
-number into your first month (e.g. April 2016) in YNAB 4 if the import fails – this will cause YNAB to create all the
-monthly buckets, so that the importer only has to add the correct numbers.
+All your budget data should get imported. Please let me know if this doesn't work – I'm making a few assumptions but
+most currency formats should be recognized. You might also try entering a random number into your first month (e.g. 
+April 2016) in YNAB 4 if the import fails – this will cause YNAB to create all the monthly buckets, so that the importer
+only has to add the correct numbers.
 
 When you open YNAB 4, the total budgeted numbers per category should be correct – if you use future budgeting a lot, it
 might look off at first, because you'll have large visible numbers as "not budgeted". These numbers are correct though,
