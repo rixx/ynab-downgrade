@@ -4,8 +4,8 @@ This page explains how to move from nYNAB to YNAB4 while retaining as much infor
 1](#appendix-1-ynab-4) for reasons and how to get YNAB4 running.
 
 You will *export* your current nYNAB budget, then perform some scripted steps on the exported data, and then gradually
-import it into a new YNAB4 budget. The scripted steps assume that you know how to use Python. (If anybody wants to
-improve this guide with setup instructions, PRs are welcome!)
+import it into a new YNAB4 budget. The scripted steps assume that you have Python 3 installed know how to use it. (If 
+anybody wants to improve this guide with setup instructions, PRs are welcome!)
 
 Sadly, there is not much scripted at the moment – you will spend time on manual tasks. But at least, this page supplies
 a guide for handling this stuff a bit better.
@@ -60,7 +60,7 @@ While accounts are limited in number, categories can be a lot, so I wrote a tiny
 before running it – it overrides the data file on closing!
 
 ```bash
-python create_categories.py path/to/ynab4_data_directory path/to/Budget.csv
+python create_categories.py path/to/Budget.csv path/to/ynab4_data_directory
 ```
 
 ## Step 3: Splitting the payment export file
@@ -117,7 +117,7 @@ you really don't want to repeat the work you just did if the budget import screw
 Then run:
 
 ```bash
-python import_budgets.py path/to/ynab4_data_directory path/to/Budget.csv
+python import_budgets.py path/to/Budget.csv path/to/ynab4_data_directory
 ```
 
 All your budget data should get imported. Please let me know if this doesn't work – I'm assuming currencies with a

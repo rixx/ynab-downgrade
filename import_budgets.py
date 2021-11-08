@@ -2,8 +2,12 @@ import collections
 import csv
 import datetime as dt
 import json
+import re
 import sys
 from pathlib import Path
+
+
+amount_regex = re.compile(r"(-?)[^\d]*(\d+[.,]?\d*)[^\d]*")
 
 
 def get_initial_version(path):
@@ -62,16 +66,17 @@ def write_budgets(path, budgets):
                 for d in data_month["monthlySubCategoryBudgets"]
                 if d["entityId"] == entity_id
             ]
+            amount = float(amount_regex.sub(r"\1\2", sub_budget["Budgeted"]))
             if data_sub_budget:
                 data_sub_budget = data_sub_budget[0]
-                data_sub_budget["budgeted"] = float(sub_budget["Budgeted"][:-1])
+                data_sub_budget["budgeted"] = amount
             else:
                 version += 1
                 data_month["monthlySubCategoryBudgets"].append(
                     {
                         "entityType": "monthlyCategoryBudget",
                         "categoryId": category_id,
-                        "budgeted": float(sub_budget["Budgeted"][:-1]),
+                        "budgeted": amount,
                         "overspendingHandling": None,
                         "entityVersion": f"A-{version}",
                         "entityId": entity_id,
