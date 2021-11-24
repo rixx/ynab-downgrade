@@ -65,6 +65,13 @@ python create_categories.py path/to/Budget.csv path/to/ynab4_data_directory
 
 ## Step 3: Splitting the payment export file
 
+If you have ever transferred money from account A to B, this transaction shows up in the account A export and the
+account B export – but since YNAB 4 does not know that we'll provide both imports, it also auto generates the matching
+transfer transaction, so every transfer exists twice. You could import them anyway but you will need to go through the list of all transactions, filter for
+Transfer, and delete every other one :/
+
+Thankfuly we can do it another way. Open the Register.csv file and in the data tab of excel, select filter. Now using the filter buttons that appear in the first row, filter first by payee and select all that start with "Transfer:". Now filter by inflow or outflow and select only 0.00. This give us a complete list of every transfer in our budget history. More specifically, it shows us one side of every transfer. On the home tab in excel, click Find & Select and chose "Go To Special". Select "Visible Cells only" and click done. We want to delete everything it has selected except for the first row which contains our headers. Hold control and click row 1 to deselect the headers. Now hit delete and save the file. 
+
 
 Now run the second split to take apart the transaction export – YNAB 4 can only import on a per-account basis.
 
@@ -84,18 +91,6 @@ Next, approve all transactions and recategorise if any did not receive a matchin
 happen, but probably will in some edge cases. If YNAB can't find a category, it should put the category in the memo
 field, so that in most cases, you can search for that field, bulk-select and handle the transactions fairly quickly.
 
-And now the
-tedious part: When you transferred money from account A to B, this transaction shows up in the account A export and the
-account B export – but since YNAB 4 does not know that we'll provide both imports, it also auto generates the matching
-transfer transaction, so every transfer exists twice. You have to go through the list of all transactions, filter for
-Transfer, and delete every other one :/
-
-To do this, first filter by "Is: Cleared,  Transfer". Then, the easiest workflow is to mark the first transaction, then
-hold Ctrl, and keep pressing down, down, space. Delete either all the inflows or outflows – it doesn't matter, as their
-counterparts will also disappear.
-
-For context: I used nYNAB for just over five years, and I had to mark around 150 transactions. Not great, but not
-terrible, either.
 
 ## Step 5: Cleanup
 
