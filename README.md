@@ -37,8 +37,8 @@ for you with a specific scenario, so others will know what works and what doesn'
 ## Preliminaries
 
 **In nYNAB:** Check if any of your category names contain a : or a `, as those are not valid characters in YNAB 4.
-Change these category names now. Also un-hide all of your previously hidden categories, as
-the import will otherwise not work for them, and you'll have to re-categorize them manually. (Not a big deal because
+Change these category names now. Also unhide all of your previously hidden categories, as
+the import will otherwise not work for them, and you'll have to recategorise them manually. (Not a big deal because
 they will be easy to filter for, but annoying regardless).
 
 **In nYNAB:** Export your nYNAB budget by clicking on the budget name in the upper right hand corner → Export Budget.
@@ -98,7 +98,7 @@ imports more likely.
 You'll want to import every file next, each under the appropriate account. Make sure to select Year/Month/Date as time
 format, as well as "Include transactions before account start date".
 
-Next, approve all transactions and re-categorize if any did not receive a matching category on import. This shouldn't
+Next, approve all transactions and recategorise if any did not receive a matching category on import. This shouldn't
 happen, but probably will in some edge cases. If YNAB can't find a category, it should put the category in the memo
 field, so that in most cases, you can search for that field, bulk-select and handle the transactions fairly quickly.
 
