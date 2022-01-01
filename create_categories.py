@@ -7,23 +7,25 @@ from pathlib import Path
 
 
 def get_initial_version(path):
-    with open(path / "../devices/A.ydevice", "r") as p:
+    with open(path / "../devices/A.ydevice", "r", encoding="utf-8-sig") as p:
         data = json.load(p)
     return int(data["knowledge"].split("-")[-1])
 
 
 def write_version(path, version):
     meta_path = path / "../devices/A.ydevice"
-    with open(meta_path, "r") as p:
+    with open(meta_path, "r", encoding="utf-8-sig") as p:
         data = json.load(p)
     data["knowledge"] = f"A-{version}"
     data["knowledgeInFullBudgetFile"] = f"A-{version}"
-    with open(meta_path, "w") as p:
+    with open(meta_path, "w", encoding="utf-8-sig") as p:
         json.dump(data, p, indent="\t")
 
 
 def write_categories(path, categories):
-    """Here, we completely replace the masterCategories part of the Budget.yfull"""
+    """
+    Here, we completely replace the masterCategories part of the Budget.yfull
+    """
     version = get_initial_version(path) + 1
     new_categories = []
     for index, (category, sub_categories) in enumerate(categories.items()):
@@ -56,15 +58,17 @@ def write_categories(path, categories):
         new_categories.append(category_data)
         version += len(sub_categories) + 1
 
-    with open(path / "Budget.yfull", "r") as p:
+    with open(path / "Budget.yfull", "r", encoding="utf-8-sig") as p:
         data = json.load(p)
 
-    data["masterCategories"] = [
-        data["masterCategories"][0]
-    ] + new_categories  # Keep hidden categories, too hard to sync due to super weird cat name syntax. Let's just assume that they are always first
+    data["masterCategories"] = [data["masterCategories"][0]] + new_categories
+    # Keep hidden categories, too hard to sync
+    # due to super weird cat name syntax.
+    # Let's just assume that they are always first
+
     data["fileMetaData"]["currentKnowledge"] = f"A-{version}"
 
-    with open(path / "Budget.yfull", "w") as p:
+    with open(path / "Budget.yfull", "w", encoding="utf-8-sig") as p:
         json.dump(data, p, indent="\t")
 
     write_version(path, version)
@@ -72,7 +76,7 @@ def write_categories(path, categories):
 
 def load_categories(path):
     categories = collections.defaultdict(set)
-    with open(path) as p:
+    with open(path, encoding="utf-8-sig") as p:
         data = csv.DictReader(p)
         for line in data:
             categories[line["Category Group"]].add(line["Category"])

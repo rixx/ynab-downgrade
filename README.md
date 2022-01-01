@@ -1,4 +1,15 @@
-# HOWTO: Downgrade from nYNAB to YNAB4
+- [HOW-TO: Downgrade from nYNAB to YNAB4](#how-to-downgrade-from-nynab-to-ynab4)
+  - [Caveats](#caveats)
+  - [Preliminaries](#preliminaries)
+  - [Step 1: Creating categories](#step-1-creating-categories)
+  - [Step 2: Creating accounts](#step-2-creating-accounts)
+  - [Step 3: Splitting the payment export file](#step-3-splitting-the-payment-export-file)
+  - [Step 4: Importing files](#step-4-importing-files)
+  - [Step 5: Cleanup](#step-5-cleanup)
+  - [Step 6: Budget import (optional)](#step-6-budget-import-optional)
+  - [Appendix 1: YNAB 4](#appendix-1-ynab-4)
+
+# HOW-TO: Downgrade from nYNAB to YNAB4
 
 This page explains how to move from nYNAB to YNAB4 while retaining as much information as possible. See [Appendix
 1](#appendix-1-ynab-4) for reasons and how to get YNAB4 running.
@@ -27,12 +38,12 @@ for you with a specific scenario, so others will know what works and what doesn'
 
 **In nYNAB:** Check if any of your category names contain a : or a `, as those are not valid characters in YNAB 4.
 Change these category names now. Also unhide all of your previously hidden categories, as
-the import will otherwise not work for them, and you'll have to re-categorise them manually. (Not a big deal because
+the import will otherwise not work for them, and you'll have to recategorise them manually. (Not a big deal because
 they will be easy to filter for, but annoying regardless).
 
 **In nYNAB:** Export your nYNAB budget by clicking on the budget name in the upper right hand corner → Export Budget.
 Download the resulting zip file (once your browser has stopped freezing if your budget is a bit older), and extract the
-zip archive. It contains two files: `Budgetname as of date - Budget.csv` and `Budgetname as of date - Register.csv`.
+zip archive. It contains two files: `BudgetName as of date - Budget.csv` and `BudgetName as of date - Register.csv`.
 I'll refer to these as `Budget.csv` and `Register.csv` from here on out.
    
 **In YNAB4:** Install YNAB 4 (see [Appendix 1](#appendix-1-ynab-4)) and set up a new budget. Set the directory to some
@@ -42,7 +53,15 @@ to the directory you selected: You will find a directory called `My Budget~numbe
 `98C499B4-4B29-6CC5-3B7A-F0247E9E2551`. Open this directory – it will contain a `budgetSettings.ybsettings` file and a
 `Budget.yfull` file. I will call this directory "YNAB4 data directory" from here on out.
 
-## Step 1: Creating accounts
+## Step 1: Creating categories
+
+While accounts are limited in number, categories can be a lot, so I wrote a tiny importer. Make sure to close YNAB 4
+before running it – it overrides the data file on closing!
+
+```bash
+python create_categories.py path/to/Budget.csv path/to/ynab4_data_directory
+```
+## Step 2: Creating accounts
 
 As a first step, create all your accounts in YNAB 4. Please make sure they are spelt *exactly* like in nYNAB.
 **Take care to also create closed accounts!**
@@ -54,14 +73,6 @@ usually have a limited amount of accounts.)*
 Now's a good time to make a backup of your YNAB4 data directory, because if something down the line fails, you won't
 want to go through this a second time.
 
-## Step 2: Creating categories
-
-While accounts are limited in number, categories can be a lot, so I wrote a tiny importer. Make sure to close YNAB 4
-before running it – it overrides the data file on closing!
-
-```bash
-python create_categories.py path/to/Budget.csv path/to/ynab4_data_directory
-```
 
 ## Step 3: Splitting the payment export file
 
@@ -70,7 +81,7 @@ account B export – but since YNAB 4 does not know that we'll provide both impo
 transfer transaction, so every transfer exists twice. You could import them anyway but you will need to go through the list of all transactions, filter for
 Transfer, and delete every other one :/
 
-Thankfuly we can do it another way. Open the Register.csv file and in the data tab of excel, select filter. Now using the filter buttons that appear in the first row, filter first by payee and select all that start with "Transfer:". Now filter by inflow or outflow and select only 0.00. This give us a complete list of every transfer in our budget history. More specifically, it shows us one side of every transfer. On the home tab in excel, click Find & Select and chose "Go To Special". Select "Visible Cells only" and click done. We want to delete everything it has selected except for the first row which contains our headers. Hold control and click row 1 to deselect the headers. Now hit delete and save the file. 
+Thankfully we can do it another way. Open the Register.csv file and in the data tab of excel, select filter. Now using the filter buttons that appear in the first row, filter first by payee and select all that start with "Transfer:". Now filter by inflow or outflow and select only 0.00. This give us a complete list of every transfer in our budget history. More specifically, it shows us one side of every transfer. On the home tab in excel, click Find & Select and chose "Go To Special". Select "Visible Cells only" and click done. We want to delete everything it has selected except for the first row which contains our headers. Hold control and click row 1 to deselect the headers. Now hit delete and save the file. 
 
 
 Now run the second split to take apart the transaction export – YNAB 4 can only import on a per-account basis.

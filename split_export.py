@@ -10,7 +10,7 @@ def main():
         print(f"{nynab_path} does not exist!")
         sys.exit(-1)
 
-    with open(nynab_path, "r") as p:
+    with open(nynab_path, "r", encoding="utf-8-sig") as p:
         content = list(csv.DictReader(p))
 
     result = collections.defaultdict(list)
@@ -19,7 +19,7 @@ def main():
         # Thanks for these replacements go to /u/loftyDan
         # https://www.reddit.com/r/ynab/comments/qlglh3/importing_data_from_nynab_to_ynab4/hj8dhwu/
         if account_key is None:
-            account_key = '\ufeff"Account"' if '\ufeff"Account"' in line else "Account"
+            account_key = "Account"
         line["Master Category"] = line.pop("Category Group").replace("Inflow", "Income")
         line["Sub Category"] = line.pop("Category").replace(
             "Ready to Assign", "Available this month"
@@ -32,7 +32,7 @@ def main():
         result[account].append(line)
 
     for account, lines in result.items():
-        with open(f"ynab_split_{account}.csv", "w") as p:
+        with open(f"ynab_split_{account}.csv", "w", encoding="utf-8-sig") as p:
             writer = csv.DictWriter(
                 p,
                 fieldnames=[
