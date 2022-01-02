@@ -32,7 +32,7 @@ def main():
         result[account].append(line)
 
     for account, lines in result.items():
-        with open(f"ynab_split_{account}.csv", "w", encoding="utf-8-sig") as p:
+        with open("ynab_split_%s.csv" % (account.replace("/", ":")), "w", encoding="utf-8-sig") as p:
             writer = csv.DictWriter(
                 p,
                 fieldnames=[
