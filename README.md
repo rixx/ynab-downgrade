@@ -51,7 +51,7 @@ place that works well for you (some location you will backup or sync, for exampl
 to the directory you selected: You will find a directory called `My Budget~number.ynab4`.  Inside, there is a
 `data1~number` directory, and inside that, there is a directory that is just one long UID, looking like
 `98C499B4-4B29-6CC5-3B7A-F0247E9E2551`. Open this directory – it will contain a `budgetSettings.ybsettings` file and a
-`Budget.yfull` file. I will call this directory "YNAB4 data directory" from here on out.
+`Budget.yfull` file. If you're using windows you may have to click view hidden items in the file explorer toolbard, to see the directory. I will call this directory "YNAB4 data directory" from here on out. 
 
 ## Step 1: Creating accounts
 
