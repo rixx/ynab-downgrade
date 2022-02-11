@@ -110,6 +110,8 @@ Out of my 7 accounts, 2 were off (one by a bit, one by a bit more), the other fi
 
 - An imported starting balance can be marked incorrectly, either change the flow direction or delete it.
 - Mark a suspect time period (first and last month / year / quarter) in both nYNAB and YNAB 4 and compare the totals.
+- Did scheduled transactions get imported too? If your balance is too high check that future transations haven't been imported.
+- Sometimes the starting balance might be weird, if you see any transations that are huge and going into outflow right at the start of your budget, labeled starting balance, try deleting these.
 
 Now, once all the account totals are correct: **you can be done**. Just copy your current category bucket total into
 your YNAB 4, and you're ready to go. Congratulations!
