@@ -1,8 +1,8 @@
 - [HOW-TO: Downgrade from nYNAB to YNAB4](#how-to-downgrade-from-nynab-to-ynab4)
   - [Caveats](#caveats)
   - [Preliminaries](#preliminaries)
-  - [Step 1: Creating categories](#step-1-creating-categories)
-  - [Step 2: Creating accounts](#step-2-creating-accounts)
+  - [Step 1: Creating accounts](#step-1-creating-accounts)
+  - [Step 2: Creating categories](#step-2-creating-categories)
   - [Step 3: Splitting the payment export file](#step-3-splitting-the-payment-export-file)
   - [Step 4: Importing files](#step-4-importing-files)
   - [Step 5: Cleanup](#step-5-cleanup)
@@ -53,15 +53,7 @@ to the directory you selected: You will find a directory called `My Budget~numbe
 `98C499B4-4B29-6CC5-3B7A-F0247E9E2551`. Open this directory – it will contain a `budgetSettings.ybsettings` file and a
 `Budget.yfull` file. I will call this directory "YNAB4 data directory" from here on out.
 
-## Step 1: Creating categories
-
-While accounts are limited in number, categories can be a lot, so I wrote a tiny importer. Make sure to close YNAB 4
-before running it – it overrides the data file on closing!
-
-```bash
-python create_categories.py path/to/Budget.csv path/to/ynab4_data_directory
-```
-## Step 2: Creating accounts
+## Step 1: Creating accounts
 
 As a first step, create all your accounts in YNAB 4. Please make sure they are spelt *exactly* like in nYNAB.
 **Take care to also create closed accounts!**
@@ -73,6 +65,14 @@ usually have a limited amount of accounts.)*
 Now's a good time to make a backup of your YNAB4 data directory, because if something down the line fails, you won't
 want to go through this a second time.
 
+## Step 2: Creating categories
+
+While accounts are limited in number, categories can be a lot, so I wrote a tiny importer. Make sure to close YNAB 4
+before running it – it overrides the data file on closing!
+
+```bash
+python create_categories.py path/to/Budget.csv path/to/ynab4_data_directory
+```
 
 ## Step 3: Splitting the payment export file
 
