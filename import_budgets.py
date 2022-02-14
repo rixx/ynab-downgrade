@@ -8,6 +8,7 @@ from pathlib import Path
 
 amount_regex = re.compile(r"(-?)[^\d]*(\d+[.,]?\d*)[^\d]*")
 
+pass_category_errors = False
 
 def get_initial_version(path):
     with open(path / "../devices/A.ydevice", "r", encoding="utf-8-sig") as p:
@@ -56,32 +57,39 @@ def write_budgets(path, budgets):
             }
             data_budgets.append(data_month)
         for sub_budget in month_budgets:
-            category_id = category_lookup[
-                (sub_budget["Category Group"], sub_budget["Category"])
-            ]["entityId"]
-            entity_id = f"MCB/{month}/{category_id}"
-            data_sub_budget = [
-                d
-                for d in data_month["monthlySubCategoryBudgets"]
-                if d["entityId"] == entity_id
-            ]
-            amount = float(amount_regex.sub(r"\1\2", sub_budget["Budgeted"]))
-            if data_sub_budget:
-                data_sub_budget = data_sub_budget[0]
-                data_sub_budget["budgeted"] = amount
-            else:
-                version += 1
-                data_month["monthlySubCategoryBudgets"].append(
-                    {
-                        "entityType": "monthlyCategoryBudget",
-                        "categoryId": category_id,
-                        "budgeted": amount,
-                        "overspendingHandling": None,
-                        "entityVersion": f"A-{version}",
-                        "entityId": entity_id,
-                        "parentMonthlyBudgetId": month_id,
-                    }
-                )
+            try: 
+                category_id = category_lookup[
+                    (sub_budget["Category Group"], sub_budget["Category"])
+                ]["entityId"]
+                entity_id = f"MCB/{month}/{category_id}"
+                data_sub_budget = [
+                    d
+                    for d in data_month["monthlySubCategoryBudgets"]
+                    if d["entityId"] == entity_id
+                ]
+                amount = float(amount_regex.sub(r"\1\2", sub_budget["Budgeted"]))
+                if data_sub_budget:
+                    data_sub_budget = data_sub_budget[0]
+                    data_sub_budget["budgeted"] = amount
+                else:
+                    version += 1
+                    data_month["monthlySubCategoryBudgets"].append(
+                        {
+                            "entityType": "monthlyCategoryBudget",
+                            "categoryId": category_id,
+                            "budgeted": amount,
+                            "overspendingHandling": None,
+                            "entityVersion": f"A-{version}",
+                            "entityId": entity_id,
+                            "parentMonthlyBudgetId": month_id,
+                        }
+                    )
+            except BaseException as error:
+                if pass_category_errors:
+                    pass
+                else:
+                    raise ValueError('An exception occurred: {}'.format(error))
+                    
 
     data["monthlyBudgets"] = data_budgets
     data["fileMetaData"]["currentKnowledge"] = f"A-{version}"

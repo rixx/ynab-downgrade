@@ -133,6 +133,10 @@ most currency formats should be recognized. You might also try entering a random
 April 2016) in YNAB 4 if the import fails – this will cause YNAB to create all the monthly buckets, so that the importer
 only has to add the correct numbers.
 
+If your import seems to be getting hung up on hidden categories, try setting the `pass_category_errors` variable in `import_budgets.py`
+to true, this will skip over these errors and if you only have a few hidden categories it might be worth having most of your
+buget history rather than none of it. 
+
 When you open YNAB 4, the total budgeted numbers per category should be correct – if you use future budgeting a lot, it
 might look off at first, because you'll have large visible numbers as "not budgeted". These numbers are correct though,
 and should line up with what you see in the breakdown when you click the month's total in nYNAB.
