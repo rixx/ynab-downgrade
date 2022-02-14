@@ -8,7 +8,7 @@ from pathlib import Path
 
 amount_regex = re.compile(r"(-?)[^\d]*(\d+[.,]?\d*)[^\d]*")
 
-pass_category_errors = True
+pass_category_errors = False
 
 def get_initial_version(path):
     with open(path / "../devices/A.ydevice", "r", encoding="utf-8-sig") as p:
@@ -86,9 +86,9 @@ def write_budgets(path, budgets):
                     )
             except BaseException as error:
                 if pass_category_errors:
-                    raise ValueError('An exception occurred: {}'.format(error))
-                else:
                     pass
+                else:
+                    raise ValueError('An exception occurred: {}'.format(error))
                     
 
     data["monthlyBudgets"] = data_budgets
